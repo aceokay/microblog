@@ -6,4 +6,4 @@ app.config.from_object('config')
 db = SQLAlchemy(app)
 
 # Putting the import at the end avoids a circular import error.
-from app import views
+from app import views, models
