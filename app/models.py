@@ -1,4 +1,5 @@
 from app import db
+from hashlib import md5 # needed for Gravatar service
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -9,6 +10,9 @@ class User(db.Model):
     @property
     def is_authenticated(self):
         return True
+
+    def avatar(self, size):
+        return 'http://www.gravatar.com/avatar/%s?d=mm&s=%d' % (md5(self.email.encode('utf-8')).hexdigest(), size)
 
     @property
     def is_active(self):
