@@ -6,6 +6,8 @@ class User(db.Model):
     nickname = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     posts = db.relationship('Post', backref='author', lazy='dynamic')
+    about_me = db.Column(db.String(140))
+    last_seen = db.Column(db.DateTime)
 
     @property
     def is_authenticated(self):
@@ -40,3 +42,9 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<Post %r>' % (self.body)
+
+
+# Every time we modify the database we have to generate a new migration.
+# With the scripts we have in this file, we can execute the following to
+# complete the migrations:
+# ./db_migrate.py
